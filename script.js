@@ -1,71 +1,69 @@
 var svg = d3.select('svg');
-var element = document.getElementById('container'),
-    style = window.getComputedStyle(element),
-    width = style.getPropertyValue('width'),
-    height = style.getPropertyValue('height');
+var width = svg.attr("width");
+var height = svg.attr("height");
 
 var graph = {
     nodes: [
-        {name: "Summer Goals"},
+        {name: "Summer Goals", color: "#fff"},
 
-        {name: "School Assignments"},
-        {name: "AP Physics"},
-        {name: "AP Spanish Lit"},
-        {name: "AP English Lang"},
-        {name: "AP Research"},
-        {name: "Precalculus"},
-        {name: "Segment 0a"},
-        {name: "Segment 1a"},
-        {name: "Segment 2a"},
-        {name: "Segment 3a"},
-        {name: "Segment 4a"},
+        {name: "School Assignments", color: "#4357AD"},
+        {name: "AP Physics", color: "#4357AD"},
+        {name: "AP Spanish Lit", color: "#4357AD"},
+        {name: "AP English Lang", color: "#4357AD"},
+        {name: "AP Research", color: "#4357AD"},
+        {name: "Precalculus", color: "#4357AD"},
+        {name: "Segment 0a", color: "#4357AD"},
+        {name: "Segment 1a", color: "#4357AD"},
+        {name: "Segment 2a", color: "#4357AD"},
+        {name: "Segment 3a", color: "#4357AD"},
+        {name: "Segment 4a", color: "#4357AD"},
 
-        {name: "Computer Science"},
-        {name: "Machine Learning"},
-        {name: "D3.js"},
-        {name: "Back End Web Dev"},
+        {name: "Computer Science", color: "#48A9A6"},
+        {name: "Machine Learning", color: "#48A9A6"},
+        {name: "D3.js", color: "#48A9A6"},
+        {name: "Back End Web Dev", color: "#48A9A6"},
 
-        {name: "It's Academic"},
-        {name: "Physics"},
-        {name: "Astronomy"},
-        {name: "Constellations"},
-        {name: "Stars"},
-        {name: "Literature"},
-        {name: "Works"},
-        {name: "Authors"},
-        {name: "American History"},
-        {name: "Presidents"},
-        {name: "Wars"},
-        {name: "Geography"},
-        {name: "Countries"},
-        {name: "Capitals"},
-        {name: "Rivers"},
-        {name: "Islands"},
+        {name: "It's Academic", color: "#C6D34A"},
+        {name: "Physics", color: "#C6D34A"},
+        {name: "Astronomy", color: "#C6D34A"},
+        {name: "Constellations", color: "#C6D34A"},
+        {name: "Stars", color: "#C6D34A"},
+        {name: "Literature", color: "#C6D34A"},
+        {name: "Works", color: "#C6D34A"},
+        {name: "Authors", color: "#C6D34A"},
+        {name: "American History", color: "#C6D34A"},
+        {name: "Presidents", color: "#C6D34A"},
+        {name: "Wars", color: "#C6D34A"},
+        {name: "Geography", color: "#C6D34A"},
+        {name: "Countries", color: "#C6D34A"},
+        {name: "Capitals", color: "#C6D34A"},
+        {name: "Rivers", color: "#C6D34A"},
+        {name: "Islands", color: "#C6D34A"},
 
-        {name: "Books"},
-        {name: "A Brief History of Time"},
-        {name: "Homer's Epics"},
-        {name: "The Iliad"},
-        {name: "The Odyssey"},
-        {name: "The Divine Comedy"},
-        {name: "Inferno"},
-        {name: "Purgatorio"},
-        {name: "Paradiso"},
-        {name: "Fahrenheit 451"},
-        {name: "Shakespeare"},
-        {name: "Macbeth"},
-        {name: "Julius Caesar"},
-        {name: "King Lear"},
-        {name: "As You Like It"},
-        {name: "The Taming of the Shrew"},
-        {name: "The Old Man and the Sea"},
-        {name: "Beowulf"},
-        {name: "To Kill a Mockingbird"},
-        {name: "Paradise Lost"},
+        {name: "Books", color: "#F29559"},
+        {name: "A Brief History of Time", color: "#F29559"},
+        {name: "Homer's Epics", color: "#F29559"},
+        {name: "The Iliad", color: "#F29559"},
+        {name: "The Odyssey", color: "#F29559"},
+        {name: "The Divine Comedy", color: "#F29559"},
+        {name: "Inferno", color: "#F29559"},
+        {name: "Purgatorio", color: "#F29559"},
+        {name: "Paradiso", color: "#F29559"},
+        {name: "Fahrenheit 451", color: "#F29559"},
+        {name: "Shakespeare", color: "#F29559"},
+        {name: "Macbeth", color: "#F29559"},
+        {name: "Julius Caesar", color: "#F29559"},
+        {name: "King Lear", color: "#F29559"},
+        {name: "As You Like It", color: "#F29559"},
+        {name: "The Taming of the Shrew", color: "#F29559"},
+        {name: "The Old Man and the Sea", color: "#F29559"},
+        {name: "Beowulf", color: "#F29559"},
+        {name: "To Kill a Mockingbird", color: "#F29559"},
+        {name: "Paradise Lost", color: "#F29559"},
 
-        {name: "Cultural Society"},
-        {name: "Attendance Spreadsheet"},
-        {name: "Flyers"}
+        {name: "Cultural Society", color: "#C1666B"},
+        {name: "Attendance Spreadsheet", color: "#C1666B"},
+        {name: "Flyers", color: "#C1666B"}
 
     ],
     links: [
@@ -160,6 +158,7 @@ var simulation = d3
         d3.forceLink(graph.links).id(function(d) {
             return d.name;
         })
+        .links(graph.links)
     )
     .force("charge", d3.forceManyBody().strength(-30))
     .force("center", d3.forceCenter(width / 2, height / 2))
@@ -172,9 +171,9 @@ var link = svg
     .enter()
     .append("line")
     .attr("stroke-width", function(d) {
-        return 3;
+        return 1;
     })
-    .style("stroke", "pink");
+    .style("stroke", "white");
 
 var node = svg 
     .append("g")
@@ -182,13 +181,31 @@ var node = svg
     .data(graph.nodes)
     .enter()
     .append("circle")
-    .attr("r", 5)
+    .attr("r", 6)
     .attr("fill", function(d) {
-        return "orange";
+        return d.color;
     })
-    .attr("stroke", "black");
+    .attr("stroke", "dimgray")
+    .call(
+        d3
+            .drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended)
+    );
+
+node.append("title")
+    .text(function(d) { return d.name; });
 
 function ticked() {
+    node
+        .attr("cx", function(d) {
+            return d.x;
+        })
+        .attr("cy", function(d) {
+            return d.y;
+        });
+
     link
         .attr("x1", function(d) {
             return d.source.x;
@@ -202,12 +219,23 @@ function ticked() {
         .attr("y2", function(d) {
             return d.target.y;
         });
-    
-    node
-        .attr("cx", function(d) {
-            return d.x;
-        })
-        .attr("cy", function(d) {
-            return d.y;
-        });
 }
+
+function dragstarted(d) {    
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+}
+
+function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+}
+
+function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+}
+
+
